@@ -46,7 +46,27 @@ demo_faculty = [
                 "faculty_id": "TEST003",
                 "name": "Test Faculty",
                 "department": "Testing"
-            }
+            },
+          {
+                         "faculty_id": "shusmitha",
+                         "name": "demo sign",
+                         "department": "Testing"
+                     },
+          {
+                                   "faculty_id": "Bhasmita",
+                                   "name": "demo sign",
+                                   "department": "Testing"
+                               },
+          {
+                                   "faculty_id": "Mohith",
+                                   "name": "demo sign",
+                                   "department": "Testing"
+                               },
+          {
+                                   "faculty_id": "Faizan",
+                                   "name": "demo sign",
+                                   "department": "Testing"
+                               }
 ]
 
 
