@@ -57,7 +57,7 @@ const [loadingFaculty, setLoadingFaculty] = useState(true);
 useEffect(() => {
   const loadFaculty = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/faculty/");
+      const response = await fetch("https://astra-faculty-signature.onrender.com/faculty/")
 
       if (!response.ok) {
         throw new Error("Failed to load faculty");
@@ -204,7 +204,7 @@ useEffect(() => {
   const selectFaculty = async (faculty) => {
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/faculty/${faculty.faculty_id}`
+      `https://astra-faculty-signature.onrender.com/faculty/${faculty.faculty_id}`
     );
 
     if (!response.ok) {
@@ -247,7 +247,7 @@ useEffect(() => {
     const signatureData = canvas.toDataURL("image/png");
 
     const response = await fetch(
-      "http://127.0.0.1:8000/signature/",
+      "https://astra-faculty-signature.onrender.com/signature/",
       {
         method: "POST",
         headers: {
