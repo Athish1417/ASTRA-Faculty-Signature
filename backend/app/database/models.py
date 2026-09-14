@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, Text
 from datetime import datetime
 
 from .database import Base
+from sqlalchemy import Text
 
 
 class Faculty(Base):
@@ -18,5 +19,7 @@ class Faculty(Base):
     has_signed = Column(Boolean, default=False, nullable=False)
 
     signature_path = Column(String, nullable=True)
+    
+    signature_data = Column(Text, nullable=True)
 
     signed_at = Column(DateTime, nullable=True)

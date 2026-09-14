@@ -6,7 +6,7 @@ from app.database.models import Faculty
 Base.metadata.create_all(bind=engine)
 
 
-demo_faculty = [
+faculty_data = [
     {
         "faculty_id": "FAC001",
         "name": "Dr. Arjun Sharma",
@@ -32,76 +32,89 @@ demo_faculty = [
         "name": "Dr. Aditya Singh",
         "department": "Civil Engineering"
     },
-        {
+    {
         "faculty_id": "TEST001",
         "name": "Test Faculty",
         "department": "Testing"
     },
-        {
+    {
         "faculty_id": "TEST002",
         "name": "Test Faculty",
         "department": "Testing"
     },
-         {
-                "faculty_id": "TEST003",
-                "name": "Test Faculty",
-                "department": "Testing"
-            },
-          {
-                         "faculty_id": "shusmitha",
-                         "name": "Shusmitha",
-                         "department": "Testing"
-                     },
-          {
-                                   "faculty_id": "Bhasmita",
-                                   "name": "Bhasmita",
-                                   "department": "Testing"
-                               },
-          {
-                                   "faculty_id": "Mohith",
-                                   "name": "Mohith",
-                                   "department": "Testing"
-                               },
-          {
-                                   "faculty_id": "Faizan",
-                                   "name": "Faizan",
-                                   "department": "Testing"
-                               }
+    {
+        "faculty_id": "TEST003",
+        "name": "Test Faculty",
+        "department": "Testing"
+    },
+    {
+        "faculty_id": "shusmitha",
+        "name": "Shusmitha",
+        "department": "Testing"
+    },
+    {
+        "faculty_id": "Bhasmita",
+        "name": "Bhasmita",
+        "department": "Testing"
+    },
+    {
+        "faculty_id": "Mohith",
+        "name": "Mohith",
+        "department": "Testing"
+    },
+    {
+        "faculty_id": "Faizan",
+        "name": "Faizan",
+        "department": "Testing"
+    }
 ]
 
 
-db = SessionLocal()
+def seed_faculty():
+    db = SessionLocal()
 
+    try:
+        for data in faculty_data:
 
-try:
-    for faculty_data in demo_faculty:
-
-        existing_faculty = (
-            db.query(Faculty)
-            .filter(
-                Faculty.faculty_id == faculty_data["faculty_id"]
+            faculty = (
+                db.query(Faculty)
+                .filter(
+                    Faculty.faculty_id == data["faculty_id"]
+                )
+                .first()
             )
-            .first()
-        )
 
-        if existing_faculty:
-            print(
-                f"{faculty_data['faculty_id']} already exists. Skipping."
-            )
-            continue
+            if faculty:
+                # Update name and department
+                faculty.name = data["name"]
+                faculty.department = data["department"]
 
-        faculty = Faculty(
-            faculty_id=faculty_data["faculty_id"],
-            name=faculty_data["name"],
-            department=faculty_data["department"]
-        )
+                print(
+                    f"Updated faculty: {data['faculty_id']}"
+                )
 
-        db.add(faculty)
+            else:
+                # Add new faculty
+                faculty = Faculty(
+                    faculty_id=data["faculty_id"],
+                    name=data["name"],
+                    department=data["department"],
+                    has_signed=False
+                )
 
-    db.commit()
+                db.add(faculty)
 
-    print("Demo faculty data added successfully!")
+                print(
+                    f"Added faculty: {data['faculty_id']}"
+                )
 
+        db.commit()
 
-finally:
-    db.close()
+        print("Faculty data synchronized successfully!")
+
+    except Exception:
+        db.rollback()
+        raise
+
+    finally:
+        db.close()

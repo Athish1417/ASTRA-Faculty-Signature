@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.database import Base, engine
 from app.database import models
+from app.database.seed import seed_faculty
 
 from app.routes import faculty
 from app.routes import signature
@@ -11,6 +12,8 @@ from app.routes import signature
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
+# Synchronize faculty data
+seed_faculty()
 
 app = FastAPI(
     title="ASTRA 2K26 Faculty Signature API",

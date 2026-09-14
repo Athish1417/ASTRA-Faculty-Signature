@@ -4,3 +4,4 @@ sqlalchemy
 pydantic
 pillow
 python-multipart
+psycopg2-binary
