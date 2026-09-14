@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
 function Robot({ image = "/robot.png", className = "" }) {
   return (
     <div className={`robot-container ${className}`}>
@@ -56,20 +59,38 @@ const [loadingFaculty, setLoadingFaculty] = useState(true);
   // -------------------------
 useEffect(() => {
   const loadFaculty = async () => {
-    try {
-      const response = await fetch("https://astra-faculty-signature.onrender.com/faculty/")
+    const maxAttempts = 3;
 
-      if (!response.ok) {
-        throw new Error("Failed to load faculty");
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        setLoadingFaculty(true);
+
+        const response = await fetch(`${API_URL}/faculty/`);
+
+        if (!response.ok) {
+          throw new Error(`Server returned ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        setFacultyList(data);
+        setLoadingFaculty(false);
+
+        return;
+      } catch (error) {
+        console.error(
+          `Error loading faculty (attempt ${attempt}/${maxAttempts}):`,
+          error
+        );
+
+        if (attempt < maxAttempts) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
       }
-
-      const data = await response.json();
-      setFacultyList(data);
-    } catch (error) {
-      console.error("Error loading faculty:", error);
-    } finally {
-      setLoadingFaculty(false);
     }
+
+    setFacultyList([]);
+    setLoadingFaculty(false);
   };
 
   loadFaculty();
@@ -204,8 +225,8 @@ useEffect(() => {
   const selectFaculty = async (faculty) => {
   try {
     const response = await fetch(
-      `https://astra-faculty-signature.onrender.com/faculty/${faculty.faculty_id}`
-    );
+  `${API_URL}/faculty/${faculty.faculty_id}`
+);
 
     if (!response.ok) {
       throw new Error("Unable to check faculty status");
@@ -247,7 +268,7 @@ useEffect(() => {
     const signatureData = canvas.toDataURL("image/png");
 
     const response = await fetch(
-      "https://astra-faculty-signature.onrender.com/signature/",
+  `${API_URL}/signature/`,
       {
         method: "POST",
         headers: {
