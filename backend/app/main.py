@@ -43,3 +43,8 @@ def root():
         "message": "ASTRA 2K26 Faculty Signature API is running."
     }
     
+@app.get("/health")
+def health():
+    return {
+        "status": "ok"
+    }
