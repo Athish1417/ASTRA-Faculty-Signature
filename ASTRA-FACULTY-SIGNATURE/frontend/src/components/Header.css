@@ -1,0 +1,22 @@
+.site-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 28px 0 8px;
+}
+
+.site-header__mark {
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.site-header__astra { color: var(--color-navy); }
+.site-header__year { color: var(--color-accent); }
+
+@media (max-width: 700px) {
+  .site-header { padding: 20px 0 4px; }
+  .site-header__mark { font-size: 18px; }
+}

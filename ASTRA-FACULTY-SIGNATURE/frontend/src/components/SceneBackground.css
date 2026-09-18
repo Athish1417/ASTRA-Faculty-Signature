@@ -1,0 +1,96 @@
+.scene-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--color-bg);
+}
+
+.scene-bg__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 90%);
+}
+
+/* Corner brackets */
+.scene-bg__bracket {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--color-line);
+}
+.scene-bg__bracket--tl { top: 24px; left: 24px; border-right: none; border-bottom: none; }
+.scene-bg__bracket--tr { top: 24px; right: 24px; border-left: none; border-bottom: none; }
+.scene-bg__bracket--bl { bottom: 24px; left: 24px; border-right: none; border-top: none; }
+.scene-bg__bracket--br { bottom: 24px; right: 24px; border-left: none; border-top: none; }
+
+/* Accent lines */
+.scene-bg__accent-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent) 45%, var(--color-accent) 55%, transparent);
+  opacity: 0.55;
+}
+.scene-bg__accent-line--top { top: 96px; }
+.scene-bg__accent-line--bottom { bottom: 96px; }
+
+/* Globe motif */
+.scene-bg__globe {
+  position: absolute;
+  left: -120px;
+  bottom: -120px;
+  width: 320px;
+  height: 320px;
+}
+.scene-bg__globe-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+}
+.scene-bg__globe-ring--2 { inset: 34px; border-color: var(--color-line-soft); }
+.scene-bg__globe-ring--3 {
+  inset: 68px;
+  border-color: var(--color-accent);
+  opacity: 0.4;
+}
+
+/* Edge labels */
+.scene-bg__label {
+  position: absolute;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+.scene-bg__label--left { top: 32px; left: 32px; }
+.scene-bg__label--right { top: 32px; right: 32px; text-align: right; }
+.scene-bg__label--top {
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.scene-bg__label--bottom-left { bottom: 32px; left: 32px; }
+.scene-bg__label--bottom-right { bottom: 32px; right: 32px; text-align: right; }
+.scene-bg__globe-icon { color: var(--color-accent); }
+
+@media (max-width: 700px) {
+  .scene-bg__label--left,
+  .scene-bg__label--right,
+  .scene-bg__label--bottom-right {
+    display: none;
+  }
+  .scene-bg__bracket { width: 18px; height: 18px; }
+  .scene-bg__globe { width: 220px; height: 220px; left: -90px; bottom: -90px; }
+  .scene-bg__label--bottom-left { bottom: 16px; left: 16px; font-size: 8px; }
+  .scene-bg__label--top { font-size: 8px; }
+}

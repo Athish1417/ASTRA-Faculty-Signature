@@ -1,0 +1,51 @@
+.sig-canvas {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-line-strong);
+  border-radius: 20px;
+  box-shadow: 0 14px 34px rgba(20, 20, 30, 0.06);
+  overflow: hidden;
+}
+
+.sig-canvas__surface {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none; /* keeps the page from scrolling while signing */
+  cursor: crosshair;
+}
+
+.sig-canvas__hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.sig-canvas__guide {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 40px;
+  height: 1px;
+  background: var(--color-line);
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .sig-canvas { height: 200px; border-radius: 16px; }
+  .sig-canvas__guide { bottom: 30px; left: 18px; right: 18px; }
+}
+
+@media (min-width: 701px) and (max-height: 800px) {
+  .sig-canvas { height: 220px; }
+}

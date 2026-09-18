@@ -1,0 +1,32 @@
+.robot {
+  display: inline-block;
+  animation: robot-float 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 12px 18px rgba(20, 20, 30, 0.08));
+}
+
+.robot--md .robot__svg { width: 140px; height: auto; }
+.robot--lg .robot__svg { width: 200px; height: auto; }
+
+.robot__eye {
+  animation: robot-blink 5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes robot-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes robot-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robot, .robot__eye { animation: none; }
+}
+
+@media (max-width: 700px) {
+  .robot--md .robot__svg { width: 96px; }
+  .robot--lg .robot__svg { width: 140px; }
+}

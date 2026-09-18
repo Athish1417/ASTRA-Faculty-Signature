@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const API_URL =
-  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+  import.meta.env.VITE_API_URL || "https://astra-faculty-signature.onrender.com";
 
 function Robot({ image = "/robot.png", className = "" }) {
   return (
@@ -257,7 +257,7 @@ useEffect(() => {
     return;
   }
 
-  const canvas = canvasRef.current;
+  const canvas = canvasRef.current;   
 
   if (!canvas || !selectedFaculty) {
     alert("Something went wrong. Please try again.");
