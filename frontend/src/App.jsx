@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const API_URL =
-  import.meta.env.VITE_API_URL || "https://astra-faculty-signature.onrender.com";
+  import.meta.env.VITE_API_URL || "https://astra-faculty-signature-hnxr.onrender.com";
 
 function Robot({ image = "/robot.png", className = "" }) {
   return (
