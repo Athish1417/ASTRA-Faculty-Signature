@@ -9,11 +9,21 @@ from app.routes import faculty
 from app.routes import signature
 
 
+# ============================================================
+# DATABASE SETUP
+# ============================================================
+
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
+
 # Synchronize faculty data
 seed_faculty()
+
+
+# ============================================================
+# FASTAPI APPLICATION
+# ============================================================
 
 app = FastAPI(
     title="ASTRA 2K26 Faculty Signature API",
@@ -21,6 +31,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
+
+# ============================================================
+# CORS
+# ============================================================
 
 # Allow React frontend to communicate with backend
 app.add_middleware(
@@ -32,18 +46,44 @@ app.add_middleware(
 )
 
 
-# Register API routes
+# ============================================================
+# API ROUTES
+# ============================================================
+
+# Register faculty routes
 app.include_router(faculty.router)
+
+# Register signature routes
 app.include_router(signature.router)
 
+
+# ============================================================
+# ROOT ENDPOINT
+# ============================================================
 
 @app.get("/")
 def root():
     return {
         "message": "ASTRA 2K26 Faculty Signature API is running."
     }
-    
-@app.get("/health")
+
+
+# ============================================================
+# HEALTH CHECK ENDPOINT
+# ============================================================
+
+# IMPORTANT:
+# UptimeRobot Free uses HEAD requests by default.
+# FastAPI's @app.get() alone was returning 405 for HEAD.
+#
+# This route now accepts BOTH:
+# GET  /health
+# HEAD /health
+
+@app.api_route(
+    "/health",
+    methods=["GET", "HEAD"]
+)
 def health():
     return {
         "status": "ok"
